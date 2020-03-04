@@ -34,7 +34,12 @@ function GiftList() {
     const description = prompt('Gift to add')
     if (description) {
       setState(state =>
-        addGift(state, uuidv4(), description, `${PICSUM_URL}${Math.random()}`)
+        addGift(
+          state,
+          uuidv4(),
+          description,
+          PICSUM_URL + Math.round(Math.random())
+        )
       )
     }
   }
