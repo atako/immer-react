@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, memo } from 'react'
 import ReactDOM from 'react-dom'
 import uuidv4 from 'uuid/v4'
 
@@ -8,7 +8,7 @@ import './misc/index.css'
 
 const PICSUM_URL = 'https://picsum.photos/200?q='
 
-const Gift = ({ gift, users, currentUser, onReserve }) => (
+const Gift = memo(({ gift, users, currentUser, onReserve }) => (
   <div className={`gift ${gift.reservedBy ? 'reserved' : ''}`}>
     <img src={gift.image} alt="gift" />
     <div className="description">
@@ -24,7 +24,7 @@ const Gift = ({ gift, users, currentUser, onReserve }) => (
       )}
     </div>
   </div>
-)
+))
 
 function GiftList() {
   const [state, setState] = useState(() => getInitialState())
@@ -44,9 +44,9 @@ function GiftList() {
     }
   }
 
-  const handleReserve = id => {
+  const handleReserve = useCallback(id => {
     setState(state => toggleReservation(state, id))
-  }
+  }, [])
 
   return (
     <div className="app">
